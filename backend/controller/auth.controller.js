@@ -60,16 +60,20 @@ export const login = async (req, res) => {
     try{
         const {email, password} = req.body;
 
-        const user = await User.findOne({email});
+        console.log(email, password);
+
+        const user = await User.findOne({email}).select("email password");
         if(!user){
             return res.status(400).json({ error:"Email not found plz sign up" })
         }
 
-        const isPasswordCorrect = bcrypt.compare(password, user?.password || "")
+        console.log(user);
+        const isPasswordCorrect = await bcrypt.compare(password, user.password || "")
         if(!isPasswordCorrect){
             return res.status(400).json({ error:"Invalid password"})
         }
-
+        
+        
         generateTokenAndSetCookies(user._id, res);
 
         res.status(200).json({

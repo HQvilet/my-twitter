@@ -31,15 +31,6 @@ app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/post", postRoute);
 
-const a = {
-    obj:"seses"
-}
-
-const {obj, asd} = a;
-
-console.log(obj, asd === null);
-
-
 app.get("/*splat", (req, res) => {
     res.status(404).send("Page not found : 404");
 })

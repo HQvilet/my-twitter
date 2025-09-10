@@ -99,7 +99,6 @@ export const commentOnPost = async (req, res) => {
 export const likeOrUnlikePost = async (req, res) => {
     try {
         const userID = req.user._id;
-
         const post = await Post.findById(req.params.id);
         if(!post){
             return res.status(404).json({ error:"Post not found." })
